@@ -1,63 +1,32 @@
 # Flask framework uage
 
-## Simple flask app
+## Redering HTML Code
+
+Use the render_template to use html files
+
+1.Import render_template function from flask
 
 ```python3
-import os
-from flask import Flask
+from flask import Flask, render_template
+```
 
+2.When using render_template Flask expects to be a directory called templates:
 
-app = Flask(__name__)
+<pre>dirtree
+flask
+|   run.py
+|
+|___templates
+    |   <b>index.html</b>
+    |   about.html
 
+</pre>
 
+3.Reference i.e. the index.html file in the function:
+
+<pre>python3
 @app.route("/")
 def index():
-    return "Hello World"
+    return render_template("<b>index.html</b>")
 
-
-if __name__ == "__main__":
-    app.run(host=os.environ.get("IP"), port=5000, debug=True)
-
-```
-
-1.Install flask:
-
-```bash
-sudo pip3 install Flask
-```
-
-2.Create new python file that will run the application.
-The Flask convention is to name it run.py or app.py:
-
-```bash
-touch run.py
-```
-
-3.Open the newly created file and
-import the flask class:
-
-```python3
-from flask import Flask
-```
-
-4.Create instance of the imported flask class.
-The Flask convention is to name the variable app:
-
-```python3
-app = Flask(__name__)
-```
-
-5.Use route decorator to tell Flask what URL should trigger the function that follows:
-
-```python3
-@app.route("/")
-def index():
-    return "Hello World"
-```
-
-6.Use the following to run the program directly if it is not imported:
-
-```python3
-if __name__ == "__main__":
-app.run(host=os.environ.get("IP), port=5000, debug=True)
-```
+</pre>
