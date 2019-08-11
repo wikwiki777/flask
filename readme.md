@@ -1,44 +1,33 @@
 # Flask framework uage
 
-## Template Inheritance
+## Applying Styles
 
-### Routing
+### Using a Bootstrap  theme
 
-1. Create a new file i.e. base.html which will be the base for inheritance, in the template directory.
+1. Download a bootstrap theme from i.e. start bootstrap
 
-2. In the base.thml define a block, or an area, that we can inject content into:
+2. Create a directory called static, and put your downloaded files in it.
 
-    - Double curly brackets {} contain an expression, which is outputting something either to teh screen, or, in this case, into our href.
+```dirtree
+flask
+|   run.py
+|
+|___static
+|   |___css
+|       |   style.css
+|
+|___templates
+    |   base.html
+    |   index.html
+    |   about.html
 
-    - The curly bracket and percentage {% %} are for statements that control the flow or our template.
+```
+
+3. How to reference to a i.e. css file.
+Go to your base.html and type the following code:
+
+    - We're going to use url_for. But this time, url_for is going to take two arguments. The first argument is 'static' so that url_for knows to look in the static directory. The second argument is filename = 'css/clean-blog.min.css' And as we can see, the file name that I've typed here corresponds with the name of the file and the directory under static.
 
 ```html
-<!-- base.html the template file -->
-<body>
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('about') }}">About</a></li>
-            <li><a href="{{ url_for('contact') }}">Contact</a></li>
-        </ul>
-    </nav>
-
-    {% block content %}
-    {% endblock %}
-
-</body>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.min.css') }}">
 ```
-
-3. Go to your index.html and delete everthing
-and put in the following code:
-
-```extendJinja
-{% extends "base.html" %}
-{% block content %}
-    <h1>Home Page</h1>
-{% endblock %}
-
-```
-
-- So what's happening here is that when our index.html file loads, Flask inherits everything from base.html.
-It then looks for a block which we called content and injects this content into it
