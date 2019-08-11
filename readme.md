@@ -1,36 +1,44 @@
 # Flask framework uage
 
-## Routing and basic Jinja Templating
+## Template Inheritance
 
 ### Routing
 
-1.Use the decorator and specify the endpoint. It then returns the template from our index() function.
-The root decorator binds the index() function to itself so that whenever that root is called, the function is called.
-And this function is also called a view:
+1. Create a new file i.e. base.html which will be the base for inheritance, in the template directory.
 
-<pre><python3>
-@app.route("/")
-def index():
-    return render_template("index.html")
-</python3>
-</pre>
+2. In the base.thml define a block, or an area, that we can inject content into:
 
-2.Reference the endpoints in the html file, this should be the same as in the route decorator i.e.:
+    - Double curly brackets {} contain an expression, which is outputting something either to teh screen, or, in this case, into our href.
+
+    - The curly bracket and percentage {% %} are for statements that control the flow or our template.
 
 ```html
-<li><a href="/">Home</a></li>
-<li><a href="/about">About</a></li>
+<!-- base.html the template file -->
+<body>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        </ul>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
 ```
 
-### Using template logic - Basic Jinja templating language
+3. Go to your index.html and delete everthing
+and put in the following code:
 
-1. So rather than typing the path in the html files we can use the Jinja templating language in the html file by using the {{  function() }}:
-
-```htmlJinja
-<!-- what we're doing is calling this url_for() function that looks up the view called index or the view called about(), and then injects some text, which is the actual route  -->
-
-<li><a href="{{ url_for('index') }}">Home</a></li>
-<li><a href="{{ url_for('about') }}">About</a></li>
-<li><a href="{{ url_for('contact') }}">Contact</a></li>
+```extendJinja
+{% extends "base.html" %}
+{% block content %}
+    <h1>Home Page</h1>
+{% endblock %}
 
 ```
+
+- So what's happening here is that when our index.html file loads, Flask inherits everything from base.html.
+It then looks for a block which we called content and injects this content into it
