@@ -31,3 +31,22 @@ Go to your base.html and type the following code:
 ```html
 <link rel="stylesheet" href="{{ url_for('static', filename='css/clean-blog.min.css') }}">
 ```
+
+4. Passing data from server to client as expression:
+
+```python
+# In the run.py
+@app.route("/about")
+def about():
+    # passing data as expressions from server to client can be any name i.e. page_title = ""
+    return render_template("about.html", page_title="About")
+```
+
+Then add to the corresponding view i.e. about.html
+
+```html
+{% extends "base.html" %}
+{% block content %}
+    <h2>{{ page_title }}</h2>
+{% endblock %}
+```
